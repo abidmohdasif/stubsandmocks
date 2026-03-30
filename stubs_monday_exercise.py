@@ -100,4 +100,4 @@ def test_api_url_staging():
     assert get_api_url(env="staging") == "https://staging.example.com"
 
 def test_api_url_production():
-    assert get_api_url(env="production) == "https://api.example.com"
+    assert get_api_url(env="production") == "https://api.example.com"
