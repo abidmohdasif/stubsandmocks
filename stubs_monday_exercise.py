@@ -66,7 +66,7 @@ def test_store_closed():
 
 def assign_study_group(random_choice=None):
     if random_choice is None:
-        random_choice = fake_choice
+        random_choice = random.choice
     return random.choice(["Group A", "Group B", "Group C"])
 
 
