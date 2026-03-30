@@ -31,7 +31,9 @@ from datetime import datetime
 # Fix: add a parameter so the time can be injected.
 # Then write test_store_open() and test_store_closed() below.
 
-def get_store_status():
+def get_store_status(current_time=None):
+    if current_time is None:
+        current_time = datetime.now()
     hour = datetime.now().hour
     if 9 <= hour < 21:
         return "Store is open"
@@ -40,11 +42,15 @@ def get_store_status():
 
 
 def test_store_open():
-    pass  # replace with your test
+    fake_time = datetime(2025, 1, 1, 12, 0, 0)
+    result = get_store_status(fake_time)
+    assert "Store is open" in result
 
 
 def test_store_closed():
-    pass  # replace with your test
+    fake_time = datetime(2025, 1, 1, 1, 0, 0)
+    result = get_store_status(fake_time)
+    assert "Store is closed" in result
 
 
 # ------------------------------------------------------------
@@ -58,12 +64,17 @@ def test_store_closed():
 # Then write test_assign_study_group() below.
 # Use == to assert an exact value -- not "result in [...]"
 
-def assign_study_group():
+def assign_study_group(random_choice=None):
+    if random_choice is None:
+        random_choice = fake_choice
     return random.choice(["Group A", "Group B", "Group C"])
 
 
 def test_assign_study_group():
-    pass  # replace with your test
+    fake_choice = "Group B"
+    result = assign_study_group(fake_choice)
+    assert "Group B" == result
+    
 
 
 # ------------------------------------------------------------
@@ -77,17 +88,16 @@ def test_assign_study_group():
 # Then write test_api_url_production() and
 # test_api_url_staging() below.
 
-def get_api_url():
-    env = os.getenv("APP_ENV")
+def get_api_url(env=None):
+    if env is None:
+        env = os.getenv("APP_ENV")
     if env == "production":
         return "https://api.example.com"
     else:
         return "https://staging.example.com"
 
+def test_api_url_staging():
+    assert get_api_url(env="staging") == "https://staging.example.com"
 
 def test_api_url_production():
-    pass  # replace with your test
-
-
-def test_api_url_staging():
-    pass  # replace with your test
+    assert get_api_url(env="production) == "https://api.example.com"
